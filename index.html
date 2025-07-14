@@ -42,6 +42,8 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 0, 0, 0.3); 
       margin: 40px auto;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
     .loader {
       position: fixed;
@@ -56,6 +58,48 @@
       width: 60px;
       height: 60px;
       animation: spin 1s linear infinite;
+    }
+    .qr-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2em; /* space between words */
+      flex-wrap: wrap;
+      max-width: 90vw;
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #00ffe0;
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
+      z-index: 9998;
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    /* Each word container */
+    .qr-message .word {
+      display: flex;
+      gap: 0.05em; /* space between letters */
+    }
+
+    /* Each letter */
+    .qr-message .word span {
+      position: relative;
+      display: inline-block;
+      color: #00ffe0;
+      opacity: 0;
+      animation: scanIn 0.4s forwards;
+      animation-timing-function: ease-out;
+      /* glitch effect */
+      animation-name: scanIn, glitch;
+      animation-duration: 0.4s, 1.2s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1, infinite;
+      animation-delay: 0s, 0.5s;
     }
     h1 {
       letter-spacing: -1px;
@@ -137,6 +181,55 @@
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-20px); }
     }
+    @keyframes scanIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+    @keyframes glitch {
+      0% {
+        clip: rect(0, 9999px, 0, 0);
+        transform: translate(0);
+        opacity: 1;
+        color: #00ffe0;
+        text-shadow: 0 0 5px #00ffe0;
+      }
+      20% {
+        clip: rect(2px, 9999px, 8px, 0);
+        transform: translate(-2px, -2px);
+        color: #000000;
+        opacity: 0.9;
+      }
+      40% {
+        clip: rect(10px, 9999px, 12px, 0);
+        transform: translate(2px, 2px);
+        color: #00ffc2;
+        opacity: 1;
+      }
+      60% {
+        clip: rect(5px, 9999px, 14px, 0);
+        transform: translate(-1px, 1px);
+        color: #000000;
+        opacity: 0.95;
+      }
+      80% {
+        clip: rect(8px, 9999px, 11px, 0);
+        transform: translate(1px, -1px);
+        color: #00ffd1;
+        opacity: 1;
+      }
+      100% {
+        clip: rect(0, 9999px, 0, 0);
+        transform: translate(0);
+        opacity: 1;
+        color: #000000;
+      }
+    }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -175,6 +268,9 @@
   
   <div id="loader" class="loader"></div>
 
+  <div id="qr-message" class="qr-message" style="display: none;">
+  </div>
+
   <div class="container" style="display: none;">
     <div class="abstract-shape"></div>
     <h1 class="glow">Ben Knightsberg</h1>
@@ -194,13 +290,77 @@
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     window.onload = () => {
       setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
         document.querySelector('.container').style.display = 'block';
       }, 3000);
     };
+  </script> -->
+  <script>
+    window.onload = () => {
+    // Hide loader immediately
+    document.getElementById('loader').style.display = 'none';
+
+    const message = 'QR verification received';
+    const qrContainer = document.getElementById('qr-message');
+
+    // Clear container first
+    qrContainer.innerHTML = '';
+
+    // Split message into words
+    const words = message.split(' ');
+
+    words.forEach((word, wIndex) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.classList.add('word');
+
+      [...word].forEach((letter, lIndex) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.textContent = letter;
+
+        // Stagger scanIn animation delay
+        letterSpan.style.animationDelay = `${(wIndex * 0.6) + lIndex * 0.06}s`;
+
+        // Stagger glitch animation delay for infinite loop, offset so each glitches separately
+        // glitch animation delay (starts after scanIn, so +0.5s)
+        letterSpan.style.animationDelay += `, ${(wIndex * 0.6) + lIndex * 0.06 + 0.5}s`;
+
+        wordSpan.appendChild(letterSpan);
+      });
+
+      qrContainer.appendChild(wordSpan);
+    });
+
+    // Show container
+    qrContainer.style.display = 'flex';
+
+    // Fade in container
+    setTimeout(() => {
+      qrContainer.style.opacity = 1;
+    }, 50);
+
+    // After showing QR message, fade out and reveal site
+    setTimeout(() => {
+      qrContainer.style.opacity = 0;
+
+      setTimeout(() => {
+        qrContainer.style.display = 'none';
+
+        const container = document.querySelector('.container');
+        container.style.display = 'block';
+        container.offsetHeight; // force reflow
+        container.style.opacity = 1;
+      }, 1000);
+    }, 3500); // message visible 3.5s for glitch effect
+  };
+
+    // // Show loader for 3 seconds
+    // setTimeout(() => {
+    //   document.getElementById('loader').style.display = 'none';
+    //   document.querySelector('.container').style.display = 'block';
+    // }, 3000);
   </script>
 </body>
 </html>
