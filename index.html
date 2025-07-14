@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The 1984 Collective</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+    background: linear-gradient(-45deg, #0c0c0c, #1a1a1a, #0c0c0c, #1a1a1a);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #e0e0e0;
+    }
+    @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      text-align: center; 
+      font-size: small;
+      border-radius: 12px;
+      box-shadow:
+        0 0 10px #00ffe0,
+        0 0 30px #00ffe0,
+        0 0 60px #00ffe0;
+      background: rgba(60, 60, 60, 0.549);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 0, 0, 0.3); 
+      margin: 40px auto;
+    }
+    .loader {
+      border: 8px solid #333;
+      border-top: 8px solid #00ffe0;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    .loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      background: transparent;
+    } 
+    h1 {
+      letter-spacing: -1px;
+      color: #ffffff;
+      margin-bottom: 0.2em;
+      font-weight: 700;
+      border-bottom: 4px solid #00ffe0;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-weight: 400;
+      color: #777;
+      margin-bottom: 1em;
+    }
+    p {
+      line-height: 1.6;
+      color: #bdbdbd;
+      margin-bottom: 1.5em;
+      font-weight: 400;
+    }
+    a {
+      text-decoration: none;
+      color: #00ffe0;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      margin-left: 4px;
+      word-break: break-all;
+    }
+    a:hover {
+      border-bottom: 2px solid #00ffe0;
+      color: #ffffff;
+      transform: scale(1.1) rotate(10deg);
+      box-shadow:
+        0 0 40px #00ffe0,
+        0 0 80px #00ffe0,
+        0 0 120px #00ffe0;
+    }
+    .glow {
+      color: #00ffe0;
+      text-shadow:
+        0 0 5px #00ffe0,
+        0 0 10px #2a9ba1,
+        0 0 20px #178886,
+        0 0 40px #245a65;
+        animation: flicker 5s infinite alternate;
+    }
+    .abstract-shape {
+      width: 200px;
+      height: 200px;
+      margin: 40px auto;
+      background: radial-gradient(circle at 30% 30%, #00ffe080, transparent 70%);
+      border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
+      animation: morph 4s infinite alternate ease-in-out;
+      box-shadow:
+        0 0 20px #4400ff,
+        0 0 40px #00ffe5,
+        0 0 60px #00ffd5;
+      animation: morph 4s infinite alternate ease-in-out, float 6s ease-in-out infinite;  
+    }
+    @keyframes morph {
+      0% {
+        border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
+      }
+      100% {
+        border-radius: 30% 70% 60% 40% / 50% 60% 30% 70%;
+      }
+    }
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+    }
+      20%, 22%, 24%, 55% {
+        opacity: 0.3;
+       } 
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2em;
+      }
+      h2 {
+        font-size: 1.2em;
+      }
+      p {
+        font-size: 1em;
+      }
+      .abstract-shape {
+        width: 150px;
+        height: 150px;
+      }
+    }
+    .contact {
+      margin-top: 2em;
+      font-size: 1.1em;
+      color: #999;
+    }
+    .container {
+      padding: 20px;
+      margin: 20px 10px;
+    }
+    .contact p {
+      margin-bottom: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <div id="loader" class="loader"></div>
+
+  <div class="container" style="display: none;">
+    <div class="abstract-shape"></div>
+    <h1 class="glow">Ben Knightsberg</h1>
+    <h2>Cloud Solutions Engineer & AI Software Engineer</h2>
+    <p>
+      Exploring the abstract edges of technology, architecture, and intelligence.<br/>
+      Designing scalable cloud solutions and creating AI-driven software with precision and creativity.
+    </p>
+    <p>
+      A member of the <strong>The 1984 Collective</strong>, a group of like-minded individuals dedicated to pushing the boundaries of technology and innovation:<br/>
+      <a href="https://u.is/en" target="_blank">u.is</a> - a platform for sharing ideas and projects that challenge the status quo.
+    </p>
+    <div class="contact">
+      <p><strong>Phone:</strong> +44 7709 160876 / +1 (857) 232-7373</p>
+      <p><strong>Email:</strong> <a href="mailto:ben-k@cryptolab.net">ben-k@cryptolab.net</a></p>
+      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/benthejamman" target="_blank">linkedin.com/in/ben-knightsberg</a></p>
+    </div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+      }, 3000);
+    };
+  </script>
+</body>
+</html>
