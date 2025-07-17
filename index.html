@@ -67,7 +67,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1.2em; /* space between words */
+      gap: 1.2em; 
       flex-wrap: wrap;
       max-width: 90vw;
       font-size: 1.6em;
@@ -80,13 +80,13 @@
       font-family: 'Space Grotesk', monospace;
     }
 
-    /* Each word container */
+    
     .qr-message .word {
       display: flex;
-      gap: 0.05em; /* space between letters */
+      gap: 0.05em; 
     }
 
-    /* Each letter */
+    
     .qr-message .word span {
       position: relative;
       display: inline-block;
@@ -94,7 +94,7 @@
       opacity: 0;
       animation: scanIn 0.4s forwards;
       animation-timing-function: ease-out;
-      /* glitch effect */
+     
       animation-name: scanIn, glitch;
       animation-duration: 0.4s, 1.2s;
       animation-fill-mode: forwards;
@@ -306,10 +306,10 @@
     const message = 'QR verification received';
     const qrContainer = document.getElementById('qr-message');
 
-    // Clear container first
+    
     qrContainer.innerHTML = '';
 
-    // Split message into words
+    
     const words = message.split(' ');
 
     words.forEach((word, wIndex) => {
@@ -320,11 +320,11 @@
         const letterSpan = document.createElement('span');
         letterSpan.textContent = letter;
 
-        // Stagger scanIn animation delay
+        
         letterSpan.style.animationDelay = `${(wIndex * 0.6) + lIndex * 0.06}s`;
 
-        // Stagger glitch animation delay for infinite loop, offset so each glitches separately
-        // glitch animation delay (starts after scanIn, so +0.5s)
+        
+        
         letterSpan.style.animationDelay += `, ${(wIndex * 0.6) + lIndex * 0.06 + 0.5}s`;
 
         wordSpan.appendChild(letterSpan);
@@ -333,15 +333,15 @@
       qrContainer.appendChild(wordSpan);
     });
 
-    // Show container
+    
     qrContainer.style.display = 'flex';
 
-    // Fade in container
+    
     setTimeout(() => {
       qrContainer.style.opacity = 1;
     }, 50);
 
-    // After showing QR message, fade out and reveal site
+    
     setTimeout(() => {
       qrContainer.style.opacity = 0;
 
@@ -350,13 +350,13 @@
 
         const container = document.querySelector('.container');
         container.style.display = 'block';
-        container.offsetHeight; // force reflow
+        container.offsetHeight; 
         container.style.opacity = 1;
       }, 1000);
-    }, 3500); // message visible 3.5s for glitch effect
+    }, 3500); 
   };
 
-    // // Show loader for 3 seconds
+    
     // setTimeout(() => {
     //   document.getElementById('loader').style.display = 'none';
     //   document.querySelector('.container').style.display = 'block';
